@@ -6,14 +6,16 @@ g = 9.81
 '''
 Stuff for drag
 '''
-def drag():
-    pass
+drag_coeffienct = 0
+air_density = 0
+cross_sectional_area =0
+
+def drag(v):
+    return drag_coeffienct * (v**2) * cross_sectional_area * 0.5 * air_density
 
 '''
 Link for thrust of propeller : https://www1.grc.nasa.gov/beginners-guide-to-aeronautics/thrust-equation
 The diver bomber used a 3-bladed hamilton standard constant speed propeller
-
-
 '''
 flow_rate_density = 1.225 # kg/m^3 this can change
 V_propeller = 0 # m/s this can change
@@ -27,14 +29,20 @@ def thrust():
 '''
 Stuff for Lift
 '''   
-def lift():
-    pass
+lift_coefficient = 0
+wing_area =0
+
+def lift(v):
+    return lift_coefficient * air_density * (v**2) * wing_area * 0.5
 
 '''
 Stuff for the force force of graphity 
 '''
-def graphity(m):
-    return m * g
+mass_earth = 0
+G = 0
+
+def graphity(r):
+    return G * mass_earth / (r**2)
 
 
 x_bomber_with_bomb = []
