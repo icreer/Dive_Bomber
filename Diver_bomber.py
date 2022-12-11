@@ -54,24 +54,24 @@ def graphity(r):
     return G * mass_earth / (( r + 6.68E6 )**2)
 
 
-x_bomber_with_bomb = [0]
-y_bomber_with_bomb = [4267]
+#x_bomber_with_bomb = [0]
+#y_bomber_with_bomb = [8000]
 
-x_bomb = []
-y_bomb = []
+x_bomb = [0]
+y_bomb = [8000]
 
-x_bomber = []
-y_bomber =[]
+x_bomber = [0]
+y_bomber =[8000]
 
-vx_bomber_with_bomb = [113.889]
+vx_bomber_with_bomb = [113.889]  # 113.889 is top speed m/s
 vy_bomber_with_bomb = [0]
 
-angle_drop1 = 0
-angle_drop2 = 60
+angle_drop1 = 0 * pi/100
+angle_drop2 = 70 * pi /180
 
 dt = 1
 t = 0
-vx = 113.889
+vx = 100 # 113.889 is top speed m/s 
 vy = 0
 mass_bomber = 2964 #kg  Source: https://airpages.ru/eng/us/sbd.shtml
 mass_bomb = 1000 # kg
@@ -79,25 +79,29 @@ M = 4318 #kg
 
 # THis is the diving process
 
-while t <10:
-    ax =  thrust(y_bomber_with_bomb[-1])  - drag(vx,y_bomber_with_bomb[-1]) #+ lift(vx*cos(angle_drop1),y_bomber_with_bomb[-1]) * sin(angle_drop1) - graphity(y_bomber_with_bomb[-1])* M *cos(angle_drop1)
-    ay =  lift(vx*cos(angle_drop1),y_bomber_with_bomb[-1])  - graphity(y_bomber_with_bomb[-1])* M #+ thrust(y_bomber_with_bomb[-1], vx,vy) * sin(angle_drop1) - drag(vy,y_bomber_with_bomb[-1]) *sin(angle_drop1)
+while t < 10:
+    ax =  thrust(y_bomber[-1])  - drag(vx,y_bomber[-1]) 
+    ay =  lift(vx,y_bomber[-1])  - graphity(y_bomber[-1])* M 
  
     vx += ax*dt * (1/M)
     vy += ay*dt * (1/M)
 
     vx_bomber_with_bomb.append(vx)
     vy_bomber_with_bomb.append(vy)
-    x_bomber_with_bomb.append(x_bomber_with_bomb[-1] + vx*dt)
-    y_bomber_with_bomb.append(y_bomber_with_bomb[-1] + vy*dt)
+    x_bomber.append(x_bomber[-1] + vx*dt)
+
+    y_bomber.append(y_bomber[-1] + vy*dt)
+
+    x_bomb.append(x_bomb[-1] + vx * dt)
+    y_bomb.append(y_bomb[-1 ]+ vy * dt)
     t += dt
 
 
 
-while y_bomber_with_bomb[-1] > 1080:  # Most SBD dropped around 1,500ft or 457.2 meters
+while y_bomber[-1] > 2000:  # Most SBD dropped around 1,500ft or 457.2 meters
 
-    ax = thrust(y_bomber_with_bomb[-1]) * cos(angle_drop2) + lift(vx*cos(angle_drop2),y_bomber_with_bomb[-1]) * sin(angle_drop2) - drag(vx*cos(angle_drop2),y_bomber_with_bomb[-1]) * cos(angle_drop2) - graphity(y_bomber_with_bomb[-1])* M *sin(angle_drop2)
-    ay = thrust(y_bomber_with_bomb[-1]) * sin(angle_drop2) + lift(vx*cos(angle_drop2),y_bomber_with_bomb[-1]) * cos(angle_drop2) - drag(vx*cos(angle_drop2),y_bomber_with_bomb[-1]) *sin(angle_drop2) - graphity(y_bomber_with_bomb[-1])* M * cos(angle_drop2)
+    ax = thrust(y_bomber[-1]) * cos(angle_drop2) + lift(vx * cos(angle_drop2) ,y_bomber[-1]) * sin(angle_drop2) - drag(vx * cos(angle_drop2) ,y_bomber[-1]) * cos(angle_drop2) 
+    ay = thrust(y_bomber[-1]) * sin(angle_drop2) + lift(vx * cos(angle_drop2) ,y_bomber[-1]) * cos(angle_drop2) - drag(vx * cos(angle_drop2) ,y_bomber[-1]) *sin(angle_drop2) - graphity(y_bomber[-1])* M 
 
     vx += ax*dt * (1/M)
     vy += ay*dt * (1/M)
@@ -105,17 +109,16 @@ while y_bomber_with_bomb[-1] > 1080:  # Most SBD dropped around 1,500ft or 457.2
     vx_bomber_with_bomb.append(vx)
     vy_bomber_with_bomb.append(vy)
 
-    x_bomber_with_bomb.append(x_bomber_with_bomb[-1] + vx*dt)
-    y_bomber_with_bomb.append(y_bomber_with_bomb[-1] + vy*dt)
+    x_bomber.append(x_bomber[-1] + vx*dt)
+    y_bomber.append(y_bomber[-1] + vy*dt)
+
+    x_bomb.append(x_bomb[-1] + vx*dt)
+    y_bomb.append(y_bomb[-1] + vy*dt)
 
 
 
 
-x_bomb = x_bomber_with_bomb
-y_bomb = y_bomber_with_bomb
 
-x_bomber = x_bomber_with_bomb
-y_bomber =y_bomber_with_bomb
 
 vx_plane = []
 vx_bomb = []
@@ -131,15 +134,10 @@ m_bomb = 1000
 m_plane = M - 1000
 
 
-#x_bomber.append(10)
-#y_bomber.append(1000)
-
-#x_bomber.append(10)
-#y_bomber.append(1000)
-
-while y_bomb[-1] > 0:
-    ax_plane =  thrust(y_bomber[-1]) * cos(angle_drop1) - drag(vx,y_bomber[-1]) * cos(angle_drop1) + lift(vx*cos(angle_drop1),y_bomber[-1]) * sin(angle_drop1) - graphity(y_bomber[-1])* M *cos(angle_drop1)
-    ay_plane =  lift(vx*cos(angle_drop1),y_bomber[-1]) * cos(angle_drop1) - graphity(y_bomber[-1])* M * cos(angle_drop1) + thrust(y_bomber[-1]) * sin(angle_drop1) - drag(vy,y_bomber[-1]) *sin(angle_drop1)
+angle_drop1 = 150* pi/180
+while t < 100:
+    ax_plane =  thrust(y_bomber[-1]) * cos(angle_drop1) - drag(vx,y_bomber[-1]) * cos(angle_drop1) + lift(vx,y_bomber[-1]) * sin(angle_drop1) 
+    ay_plane =  lift(vx,y_bomber[-1]) * cos(angle_drop1) - graphity(y_bomber[-1])* M + thrust(y_bomber[-1]) * sin(angle_drop1) - drag(vy,y_bomber[-1]) *sin(angle_drop1)
  
     
     vxp = vx_plane[-1] + ax_plane*dt * (1/m_plane)
@@ -150,23 +148,28 @@ while y_bomb[-1] > 0:
     x_bomber.append(x_bomber[-1] + vxp*dt)
     y_bomber.append(y_bomber[-1] + vyp*dt)
 
-    ax_bomb =  -1* drag(vx,y_bomber[-1]) * cos(angle_drop1) - graphity(y_bomber[-1])* M *cos(angle_drop1)
+    ax_bomb =  -1* drag(vx,y_bomber[-1])  
     ay_bomb =   -1* graphity(y_bomber[-1])* M * cos(angle_drop1) - drag(vy,y_bomber[-1]) *sin(angle_drop1)
  
+    if y_bomb[-1] <= 0:
+        vxb = 0
+        vyb = 0
+    else:
+        vxb = vx_bomb[-1] + ax_bomb*dt * (1/m_bomb)
+        vyb = vy_bomb[-1] + ay_bomb*dt * (1/m_bomb)
     
-    vxb = vx_bomb[-1] + ax_bomb*dt * (1/m_bomb)
-    vyb = vy_bomb[-1] + ay_bomb*dt * (1/m_bomb)
 
     vx_bomb.append(vxb)
     vy_bomb.append(vyb)
+
     x_bomb.append(x_bomb[-1] + vxb*dt)
     y_bomb.append(y_bomb[-1] + vyb*dt)
     t += dt
 
 
 plt.plot(x_bomber,y_bomber)
-#plt.scatter(x_bomb,y_bomb)
-#plt.scatter(vx_bomber_with_bomb,vy_bomber_with_bomb)
+plt.plot(x_bomb,y_bomb)
+
 
 plt.show()
 
@@ -175,6 +178,3 @@ plt.show()
 #print(len(y_bomber_with_bomb))
 print(vx_plane)
 print(vy_plane)
-
-
-print(2* G * mass_earth* M/(((6.68E6 + 4267)**2) * wing_area * air_density(4267)*(113.89**2)))
