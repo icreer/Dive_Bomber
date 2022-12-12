@@ -63,7 +63,7 @@ y_bomb = [8000]
 x_bomber = [0]
 y_bomber =[8000]
 
-vx_bomber_with_bomb = [113.889]  # 113.889 is top speed m/s
+vx_bomber_with_bomb = [100]  # 113.889 is top speed m/s
 vy_bomber_with_bomb = [0]
 
 angle_drop1 = 0 * pi/100
@@ -213,10 +213,19 @@ while  t < 40:
     t += dt
 
 
-plt.plot(x_bomber,y_bomber)
-plt.plot(x_bomb,y_bomb)
-#plt.xlim(4000, 8000)
-#plt.ylim(0,2500)
+'''
+THe Graph
+'''
+
+plt.title("Dive Bomber Path 2-D")
+plt.xlabel("X-Distance (Meter)")
+plt.ylabel("Altitude (Meter)")
+plt.plot(x_bomber,y_bomber,label = "Bomber")
+plt.plot(x_bomb,y_bomb, label ="Bomb")
+#plt.xlim(5000, 10000)
+plt.ylim(0,8500)
+plt.legend(loc='lower left')
+plt.plot([0, 10000], [0, 0], 'k-', lw=2)
 
 plt.show()
 
