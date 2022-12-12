@@ -1,7 +1,7 @@
 # Dive_Bomber
 By: Isaac Creer
 
-## Intr0
+## Intro
 This is simple python code to model the path that a Dougles SBD Dontless. 
 
 ## Assumption made
