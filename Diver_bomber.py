@@ -54,14 +54,11 @@ def graphity(r):
     return G * mass_earth / (( r + 6.68E6 )**2)
 
 
-#x_bomber_with_bomb = [0]
-#y_bomber_with_bomb = [8000]
-
 x_bomb = [0]
-y_bomb = [8000]
+y_bomb = [7680]
 
 x_bomber = [0]
-y_bomber =[8000]
+y_bomber =[7680]
 
 vx_bomber_with_bomb = [100]  # 113.889 is top speed m/s
 vy_bomber_with_bomb = [0]
@@ -101,7 +98,7 @@ while t < 10:
 
 
 
-while y_bomber[-1] > 1000:  # Most SBD dropped around 1,500ft or 457.2 meters
+while y_bomber[-1] > 800:  # Most SBD dropped around 1,500ft or 457.2 meters
     total_speed = sqrt(vx**2 + vy**2)
     lift_factor = 1
     ax = thrust(y_bomber[-1],5) * cos(angle_drop2) + lift(total_speed ,y_bomber[-1], lift_factor) * sin(angle_drop2) - drag(total_speed ,y_bomber[-1], lift_factor) * cos(angle_drop2) 
@@ -159,7 +156,7 @@ m_plane = M - 1000
 
 angle_drop1 = 20 * pi/180
 while  t < 40: 
-    lift_factor = 2
+    lift_factor = 2.7
     total_speed = sqrt(vx_plane[-1]**2 + vy_plane[-1]**2)
     ax_plane =  thrust(y_bomber[-1],10) * cos(angle_drop1) - drag(total_speed,y_bomber[-1],lift_factor) * cos(angle_drop1) + lift(total_speed,y_bomber[-1],lift_factor) * sin(angle_drop1) 
     ay_plane =  lift(total_speed,y_bomber[-1], lift_factor) * cos(angle_drop1) - graphity(y_bomber[-1])* m_plane + thrust(y_bomber[-1],10) * sin(angle_drop1) - drag(total_speed,y_bomber[-1], lift_factor) *sin(angle_drop1)
@@ -223,7 +220,7 @@ plt.ylabel("Altitude (Meter)")
 plt.plot(x_bomber,y_bomber,label = "Bomber")
 plt.plot(x_bomb,y_bomb, label ="Bomb")
 #plt.xlim(5000, 10000)
-plt.ylim(0,8500)
+plt.ylim(0,8000)
 plt.legend(loc='lower left')
 plt.plot([0, 10000], [0, 0], 'k-', lw=2)
 
